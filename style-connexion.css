@@ -1,0 +1,18 @@
+.connexion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0%, -50%);
+  border: 1px solid lightgray;
+  padding: 20px;
+  text-align: center;
+}
+.inscription {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-100%, -50%);
+  border: 1px solid lightgray;
+  padding: 20px;
+  text-align: center;
+}
