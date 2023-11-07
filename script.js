@@ -12,15 +12,22 @@ const storedPassword = localStorage.getItem("password");
 
 if (window.location.href.includes("page-connexion.html")) {
   class User {
-    constructor(userName, password) {
+    constructor(userName, password, nom, prenom) {
       this.userName = userName;
       this.password = password;
+      this.nom = nom;
+      this.prenom = prenom;
     }
   }
 
   inscrire.addEventListener("click", function () {
     console.log("Inscrire button clicked");
-    let newUser = new User(userIn.value, passwordIn.value);
+    let newUser = new User(
+      userIn.value,
+      passwordIn.value,
+      "blablabla",
+      "blabla"
+    );
     localStorage.setItem("userName", newUser.userName);
     localStorage.setItem("password", newUser.password);
     window.location.reload();
@@ -28,6 +35,24 @@ if (window.location.href.includes("page-connexion.html")) {
 
   function verifConnect() {
     console.log("Inscrire button clicked");
+
+    fetch("utilisateurs.json")
+      .then((reponse) => reponse.json())
+      .then((objUser) => {
+        for (let i = 0; i < objUser.utilisateurs.length; i++) {
+          if (
+            user.value === objUser.utilisateurs[i].userName &&
+            password.value === objUser.utilisateurs[i].password
+          ) {
+            btnPage1.setAttribute("disabled", "true");
+
+            setTimeout(function () {
+              window.location.href = "page2.html";
+            }, 2000);
+          }
+        }
+      });
+
     if (user.value === storedUser && password.value === storedPassword) {
       btnPage1.setAttribute("disabled", "true");
 
