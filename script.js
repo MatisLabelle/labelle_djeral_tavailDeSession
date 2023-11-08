@@ -1,6 +1,7 @@
 const btnPage1 = document.getElementById("connect");
 const btnPage2 = document.getElementById("retour");
 const submit = document.getElementById("submit");
+const deconnection = document.getElementById("deconnect");
 const body = document.querySelector("body");
 const user = document.getElementById("user");
 const password = document.getElementById("password");
@@ -12,22 +13,15 @@ const storedPassword = localStorage.getItem("password");
 
 if (window.location.href.includes("page-connexion.html")) {
   class User {
-    constructor(userName, password, nom, prenom) {
+    constructor(userName, password) {
       this.userName = userName;
       this.password = password;
-      this.nom = nom;
-      this.prenom = prenom;
     }
   }
 
   inscrire.addEventListener("click", function () {
     console.log("Inscrire button clicked");
-    let newUser = new User(
-      userIn.value,
-      passwordIn.value,
-      "blablabla",
-      "blabla"
-    );
+    let newUser = new User(userIn.value, passwordIn.value);
     localStorage.setItem("userName", newUser.userName);
     localStorage.setItem("password", newUser.password);
     window.location.reload();
@@ -35,24 +29,6 @@ if (window.location.href.includes("page-connexion.html")) {
 
   function verifConnect() {
     console.log("Inscrire button clicked");
-
-    fetch("utilisateurs.json")
-      .then((reponse) => reponse.json())
-      .then((objUser) => {
-        for (let i = 0; i < objUser.utilisateurs.length; i++) {
-          if (
-            user.value === objUser.utilisateurs[i].userName &&
-            password.value === objUser.utilisateurs[i].password
-          ) {
-            btnPage1.setAttribute("disabled", "true");
-
-            setTimeout(function () {
-              window.location.href = "page2.html";
-            }, 2000);
-          }
-        }
-      });
-
     if (user.value === storedUser && password.value === storedPassword) {
       btnPage1.setAttribute("disabled", "true");
 
@@ -77,6 +53,15 @@ if (window.location.href.includes("page2.html")) {
       }, 2000);
 
       btnPage2.setAttribute("disabled", "true");
+    });
+  }
+  if (deconnection !== null) {
+    deconnection.addEventListener("click", function () {
+      setTimeout(function () {
+        window.location.href = "page-connexion.html";
+      }, 2000);
+
+      deconnection.setAttribute("disabled", "true");
     });
   }
   let questionsAffichees = false;
@@ -134,6 +119,35 @@ if (window.location.href.includes("page2.html")) {
       questionsAffichees = true;
       effacerRepPage2(erase);
     }
+
+    fetch("reponses_sondage.json")
+  .then((response) => response.json())
+  .then((answer) => {
+    for (let i = 0; i < answer.user.length; i++) {
+      let paraUser = document.createElement("p");
+      let nodeNomUser = document.createTextNode(
+        "Vous êtes: " +
+        answer.user[i].nom +
+        "  Question 1: " +
+        answer.user[i].quest1 +
+        "  Question 2: " +
+        answer.user[i].quest2 +
+        "  Question 3: " +
+        answer.user[i].quest3 +
+        "  Question 4: " +
+        answer.user[i].quest4 +
+        "  Question 5: " +
+        answer.user[i].quest5
+      );
+
+      paraUser.appendChild(nodeNomUser);
+      body.appendChild(paraUser);
+    }
+  })
+  .catch((error) => {
+    console.error("Il y a une erreur mon reuf : " + error);
+  });
+
   });
 
   function counter() {
