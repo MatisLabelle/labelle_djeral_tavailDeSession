@@ -49,6 +49,10 @@ if (window.location.href.includes("page-connexion.html")) {
             setTimeout(function () {
               window.location.href = "page2.html";
             }, 2000);
+
+            sessionStorage.setItem("login", objUser.utilisateurs[i].userName);
+            sessionStorage.setItem("nom", objUser.utilisateurs[i].nom);
+            sessionStorage.setItem("prenom", objUser.utilisateurs[i].prenom);
           }
         }
       });
@@ -73,7 +77,7 @@ if (window.location.href.includes("page2.html")) {
   if (btnPage2 !== null) {
     btnPage2.addEventListener("click", function () {
       setTimeout(function () {
-        window.location.href = "page1.html";
+        window.location.href = "page-connexion.html";
       }, 2000);
 
       btnPage2.setAttribute("disabled", "true");
