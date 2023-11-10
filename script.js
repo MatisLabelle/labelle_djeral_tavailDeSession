@@ -10,7 +10,9 @@ const passwordIn = document.getElementById("password-inscription");
 const storedUser = localStorage.getItem("userName");
 const storedPassword = localStorage.getItem("password");
 
+// page de connexion
 if (window.location.href.includes("page-connexion.html")) {
+  // classe user et inscription
   class User {
     constructor(userName, password, nom, prenom) {
       this.userName = userName;
@@ -33,6 +35,7 @@ if (window.location.href.includes("page-connexion.html")) {
     window.location.reload();
   });
 
+  // connexion
   function verifConnect() {
     console.log("Inscrire button clicked");
 
@@ -68,12 +71,15 @@ if (window.location.href.includes("page-connexion.html")) {
   btnPage1.addEventListener("click", verifConnect);
 }
 
+// page sondage
 if (window.location.href.includes("page2.html")) {
+  // alert cookies
   (() => {
     let message = "Ce site utilise vos cookies si vous continuez la navigation";
     alert(message);
   })();
 
+  // bouton déconexion
   if (btnPage2 !== null) {
     btnPage2.addEventListener("click", function () {
       setTimeout(function () {
@@ -81,10 +87,12 @@ if (window.location.href.includes("page2.html")) {
       }, 2000);
 
       btnPage2.setAttribute("disabled", "true");
+      sessionStorage.clear();
     });
   }
   let questionsAffichees = false;
 
+  // fonction pour effacer les reponses dans les inputs
   function effacerRepPage2(fonctionEfface) {
     const inputEfface = document.querySelectorAll(".page2-input");
     inputEfface.forEach((input) => {
@@ -95,6 +103,7 @@ if (window.location.href.includes("page2.html")) {
     input.value = "";
   }
 
+  // message apres l'envoie
   submit.addEventListener("click", function () {
     let merci = document.createElement("p");
     let node = document.createTextNode(
@@ -104,6 +113,7 @@ if (window.location.href.includes("page2.html")) {
     merci.appendChild(node);
     body.appendChild(merci);
 
+    // afficher les réponses
     if (!questionsAffichees) {
       let q1 = document.getElementsByName("q1");
       let q2 = document.getElementById("q2");
@@ -140,6 +150,7 @@ if (window.location.href.includes("page2.html")) {
     }
   });
 
+  // counter bouton envoyer
   function counter() {
     let clickCount = 0;
     return function () {
@@ -173,6 +184,7 @@ if (window.location.href.includes("page2.html")) {
     submitButton.addEventListener("click", handleClick);
   }
 
+  // class question
   class Question {
     constructor(id, type, name) {
       this.id = id;
@@ -250,4 +262,14 @@ if (window.location.href.includes("page2.html")) {
   input5Non.type = "radio";
   input5Non.name = quest5Non.name;
   input5Non.value = quest5Non.value;
+
+  // div allo avec nom et prenom
+  let allo = document.querySelector(".allo");
+  let para = document.createElement("p");
+  para.textContent =
+    "Bonjour, " +
+    sessionStorage.getItem("prenom") +
+    " " +
+    sessionStorage.getItem("nom");
+  allo.appendChild(para);
 }
