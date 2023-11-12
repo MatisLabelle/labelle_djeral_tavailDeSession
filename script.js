@@ -11,7 +11,9 @@ const passwordIn = document.getElementById("password-inscription");
 const storedUser = localStorage.getItem("userName");
 const storedPassword = localStorage.getItem("password");
 
+// page de connexion
 if (window.location.href.includes("page-connexion.html")) {
+  // classe user et inscription
   class User {
     constructor(userName, password) {
       this.userName = userName;
@@ -27,8 +29,33 @@ if (window.location.href.includes("page-connexion.html")) {
     window.location.reload();
   });
 
+  // connexion
   function verifConnect() {
     console.log("Inscrire button clicked");
+
+
+
+    fetch("utilisateurs.json")
+      .then((reponse) => reponse.json())
+      .then((objUser) => {
+        for (let i = 0; i < objUser.utilisateurs.length; i++) {
+          if (
+            user.value === objUser.utilisateurs[i].userName &&
+            password.value === objUser.utilisateurs[i].password
+          ) {
+            btnPage1.setAttribute("disabled", "true");
+
+            setTimeout(function () {
+              window.location.href = "page2.html";
+            }, 2000);
+
+            sessionStorage.setItem("login", objUser.utilisateurs[i].userName);
+            sessionStorage.setItem("nom", objUser.utilisateurs[i].nom);
+            sessionStorage.setItem("prenom", objUser.utilisateurs[i].prenom);
+          }
+        }
+      });
+
     if (user.value === storedUser && password.value === storedPassword) {
       btnPage1.setAttribute("disabled", "true");
 
@@ -40,19 +67,23 @@ if (window.location.href.includes("page-connexion.html")) {
   btnPage1.addEventListener("click", verifConnect);
 }
 
+// page sondage
 if (window.location.href.includes("page2.html")) {
+  // alert cookies
   (() => {
     let message = "Ce site utilise vos cookies si vous continuez la navigation";
     alert(message);
   })();
 
+  // bouton déconexion
   if (btnPage2 !== null) {
     btnPage2.addEventListener("click", function () {
       setTimeout(function () {
-        window.location.href = "page1.html";
+        window.location.href = "page-connexion.html";
       }, 2000);
 
       btnPage2.setAttribute("disabled", "true");
+      sessionStorage.clear();
     });
   }
   if (deconnection !== null) {
@@ -66,6 +97,7 @@ if (window.location.href.includes("page2.html")) {
   }
   let questionsAffichees = false;
 
+  // fonction pour effacer les reponses dans les inputs
   function effacerRepPage2(fonctionEfface) {
     const inputEfface = document.querySelectorAll(".page2-input");
     inputEfface.forEach((input) => {
@@ -76,6 +108,7 @@ if (window.location.href.includes("page2.html")) {
     input.value = "";
   }
 
+  // message apres l'envoie
   submit.addEventListener("click", function () {
     let merci = document.createElement("p");
     let node = document.createTextNode(
@@ -85,6 +118,7 @@ if (window.location.href.includes("page2.html")) {
     merci.appendChild(node);
     body.appendChild(merci);
 
+    // afficher les réponses
     if (!questionsAffichees) {
       let q1 = document.getElementsByName("q1");
       let q2 = document.getElementById("q2");
@@ -150,6 +184,7 @@ if (window.location.href.includes("page2.html")) {
 
   });
 
+  // counter bouton envoyer
   function counter() {
     let clickCount = 0;
     return function () {
@@ -183,6 +218,7 @@ if (window.location.href.includes("page2.html")) {
     submitButton.addEventListener("click", handleClick);
   }
 
+  // class question
   class Question {
     constructor(id, type, name) {
       this.id = id;
@@ -260,4 +296,14 @@ if (window.location.href.includes("page2.html")) {
   input5Non.type = "radio";
   input5Non.name = quest5Non.name;
   input5Non.value = quest5Non.value;
+
+  // div allo avec nom et prenom
+  let allo = document.querySelector(".allo");
+  let para = document.createElement("p");
+  para.textContent =
+    "Bonjour, " +
+    sessionStorage.getItem("prenom") +
+    " " +
+    sessionStorage.getItem("nom");
+  allo.appendChild(para);
 }

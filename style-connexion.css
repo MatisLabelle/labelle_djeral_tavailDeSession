@@ -16,3 +16,12 @@
   padding: 20px;
   text-align: center;
 }
+
+.allo {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  border: 1px solid lightgray;
+  padding: 20px;
+  text-align: center;
+}
