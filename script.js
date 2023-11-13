@@ -33,8 +33,6 @@ if (window.location.href.includes("page-connexion.html")) {
   function verifConnect() {
     console.log("Inscrire button clicked");
 
-
-
     fetch("utilisateurs.json")
       .then((reponse) => reponse.json())
       .then((objUser) => {
@@ -108,6 +106,8 @@ if (window.location.href.includes("page2.html")) {
     input.value = "";
   }
 
+  
+
   // message apres l'envoie
   submit.addEventListener("click", function () {
     let merci = document.createElement("p");
@@ -119,6 +119,7 @@ if (window.location.href.includes("page2.html")) {
     body.appendChild(merci);
 
     // afficher les réponses
+    /*
     if (!questionsAffichees) {
       let q1 = document.getElementsByName("q1");
       let q2 = document.getElementById("q2");
@@ -152,36 +153,59 @@ if (window.location.href.includes("page2.html")) {
 
       questionsAffichees = true;
       effacerRepPage2(erase);
-    }
+    }*/
 
+    // lecture du json reponses_sondage.json
     fetch("reponses_sondage.json")
-  .then((response) => response.json())
-  .then((answer) => {
-    for (let i = 0; i < answer.user.length; i++) {
-      let paraUser = document.createElement("p");
-      let nodeNomUser = document.createTextNode(
-        "Vous êtes: " +
-        answer.user[i].nom +
-        "  Question 1: " +
-        answer.user[i].quest1 +
-        "  Question 2: " +
-        answer.user[i].quest2 +
-        "  Question 3: " +
-        answer.user[i].quest3 +
-        "  Question 4: " +
-        answer.user[i].quest4 +
-        "  Question 5: " +
-        answer.user[i].quest5
-      );
+      .then((reponse) => reponse.json())
+      .then((sondage) => {
+        sessionStorage.setItem("questionMatis1", sondage.questions[0].rep1);
+        sessionStorage.setItem("questionMatis2", sondage.questions[0].rep2);
+        sessionStorage.setItem("questionMatis3", sondage.questions[0].rep3);
+        sessionStorage.setItem("questionMatis4", sondage.questions[0].rep4);
+        sessionStorage.setItem("questionMatis5", sondage.questions[0].rep5);
 
-      paraUser.appendChild(nodeNomUser);
-      body.appendChild(paraUser);
-    }
-  })
-  .catch((error) => {
-    console.error("Il y a une erreur mon reuf : " + error);
-  });
+        sessionStorage.setItem("questionAbdel1", sondage.questions[1].rep1);
+        sessionStorage.setItem("questionAbdel2", sondage.questions[1].rep2);
+        sessionStorage.setItem("questionAbdel3", sondage.questions[1].rep3);
+        sessionStorage.setItem("questionAbdel4", sondage.questions[1].rep4);
+        sessionStorage.setItem("questionAbdel5", sondage.questions[1].rep5);
 
+        // div allo avec nom et prenom
+      
+
+        //Afficher les reponse des questions
+        let nomQuestion = sessionStorage.getItem("nom");
+        let paraQuestion = document.createElement("p");
+        if (nomQuestion === "Labelle") {
+          paraQuestion.textContent =
+            " Vous avez repondu : " +
+            sessionStorage.getItem("questionMatis1") +
+            " a la question 1,  " +
+            sessionStorage.getItem("questionMatis2") +
+            " a la question 2,  " +
+            sessionStorage.getItem("questionMatis3") +
+            " a la question 3, " +
+            sessionStorage.getItem("questionMatis4") +
+            " a la question 4  et " +
+            sessionStorage.getItem("questionMatis5") +
+            " a la question 5";
+        } else if (nomQuestion === "Ali") {
+          paraQuestion.textContent =
+            " Vous avez repondu : " +
+            sessionStorage.getItem("questionAbdel1") +
+            " a la question 1,  " +
+            sessionStorage.getItem("questionAbdel2") +
+            " a la question 2,  " +
+            sessionStorage.getItem("questionAbdel3") +
+            " a la question 3, " +
+            sessionStorage.getItem("questionAbdel4") +
+            " a la question 4  et " +
+            sessionStorage.getItem("questionAbdel5") +
+            " a la question 5";
+        }
+        allo.appendChild(paraQuestion);
+      });
   });
 
   // counter bouton envoyer
@@ -297,13 +321,12 @@ if (window.location.href.includes("page2.html")) {
   input5Non.name = quest5Non.name;
   input5Non.value = quest5Non.value;
 
-  // div allo avec nom et prenom
   let allo = document.querySelector(".allo");
   let para = document.createElement("p");
   para.textContent =
     "Bonjour, " +
     sessionStorage.getItem("prenom") +
-    " " +
+    "  " +
     sessionStorage.getItem("nom");
-  allo.appendChild(para);
+    allo.appendChild(para);
 }

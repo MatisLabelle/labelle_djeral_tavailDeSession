@@ -1,0 +1,19 @@
+{
+    "questions": [
+      {
+        "rep1": "Oui",
+        "rep2": "Oui",
+        "rep3": "Oui",
+        "rep4": "Oui",
+        "rep5": "Oui"
+      },
+      {
+        "rep1": "Non",
+        "rep2": "Non",
+        "rep3": "Non",
+        "rep4": "Non",
+        "rep5": "Non"
+      }
+
+    ]
+  }
