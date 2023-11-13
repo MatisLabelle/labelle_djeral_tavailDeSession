@@ -1,32 +1,16 @@
 {
-  "user": [
+  "utilisateurs": [
     {
-      "nom": "User1",
-      "password": "1234",
-      "quest1": "Non",
-      "quest2": "Salut",
-      "quest3": "Bonjour",
-      "quest4": "1",
-      "quest5": "Non"
+      "userName": "matis",
+      "password": "ml",
+      "nom": "Labelle",
+      "prenom": "Matis"
     },
     {
-      "nom": "User2",
-      "password": "1234",
-      "quest1": "Non",
-      "quest2": "Salut",
-      "quest3": "Bonjour",
-      "quest4": "2",
-      "quest5": "Non"
-    },
-    {
-      "nom": "User3",
-      "password": "1234",
-      "quest1": "Non",
-      "quest2": "Salut",
-      "quest3": "Bonjour",
-      "quest4": "3",
-      "quest5": "Non"
-
+      "userName": "abdel",
+      "password": "aa",
+      "nom": "Ali",
+      "prenom": "Abdel"
     }
   ]
 }
