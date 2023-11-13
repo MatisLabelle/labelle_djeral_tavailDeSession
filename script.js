@@ -106,8 +106,6 @@ if (window.location.href.includes("page2.html")) {
     input.value = "";
   }
 
-  
-
   // message apres l'envoie
   submit.addEventListener("click", function () {
     let merci = document.createElement("p");
@@ -119,7 +117,6 @@ if (window.location.href.includes("page2.html")) {
     body.appendChild(merci);
 
     // afficher les réponses
-    /*
     if (!questionsAffichees) {
       let q1 = document.getElementsByName("q1");
       let q2 = document.getElementById("q2");
@@ -129,32 +126,52 @@ if (window.location.href.includes("page2.html")) {
 
       let tabQuestions = [q1, q2, q3, q4, q5];
 
+      //text node avec les reponses a l'interieur
+      let questionsRep = document.createElement("p");
+      let repondu = document.createTextNode(
+        "Voici vos reponses pour chacunes des questions"
+      );
+      questionsRep.appendChild(repondu);
+      questionsRep.appendChild(document.createElement("br"));
+
+      // chq question cree un setItem dans le sessionStorage et les force dans un <p> (questionsRep)
       for (let i = 0; i < tabQuestions.length; i++) {
         if (i === 1 || i === 2) {
-          let questionsRep = document.createElement("p");
-          let repQuestions = document.createTextNode(
-            "Question " + (i + 1) + ": " + tabQuestions[i].value
-          );
-          questionsRep.appendChild(repQuestions);
-          body.appendChild(questionsRep);
+          sessionStorage.setItem("question" + (i + 1), tabQuestions[i].value);
+          let paraRep = document.createTextNode("");
+          paraRep.textContent =
+            "Question " +
+            (i + 1) +
+            ": " +
+            sessionStorage.getItem("question" + (i + 1));
+          questionsRep.appendChild(paraRep);
+          questionsRep.appendChild(document.createElement("br"));
         } else {
-          for (let radio of tabQuestions[i]) {
-            if (radio.checked) {
-              let questionRadio = document.createElement("p");
-              let repRadio = document.createTextNode(
-                "Question " + (i + 1) + ": " + radio.value
-              );
-              questionRadio.appendChild(repRadio);
-              body.appendChild(questionRadio);
+          if (tabQuestions[i].length) {
+            // If it's iterable
+            for (let radio of tabQuestions[i]) {
+              if (radio.checked) {
+                sessionStorage.setItem("radio" + (i + 1), radio.value);
+
+                let paraRepRadio = document.createTextNode(
+                  "Question " +
+                    (i + 1) +
+                    ": " +
+                    sessionStorage.getItem("radio" + (i + 1))
+                );
+                questionsRep.appendChild(paraRepRadio);
+                questionsRep.appendChild(document.createElement("br"));
+              }
             }
           }
+
+          allo.appendChild(questionsRep);
         }
       }
 
-      questionsAffichees = true;
       effacerRepPage2(erase);
-    }*/
-
+    }
+    /*
     // lecture du json reponses_sondage.json
     fetch("reponses_sondage.json")
       .then((reponse) => reponse.json())
@@ -205,7 +222,7 @@ if (window.location.href.includes("page2.html")) {
             " a la question 5";
         }
         allo.appendChild(paraQuestion);
-      });
+      });*/
   });
 
   // counter bouton envoyer
@@ -250,7 +267,6 @@ if (window.location.href.includes("page2.html")) {
       this.name = name;
     }
   }
-
   class QuestionRadio extends Question {
     constructor(id, name, value) {
       super(id, "radio", name);
@@ -321,6 +337,7 @@ if (window.location.href.includes("page2.html")) {
   input5Non.name = quest5Non.name;
   input5Non.value = quest5Non.value;
 
+  // affiche nom + prenom
   let allo = document.querySelector(".allo");
   let para = document.createElement("p");
   para.textContent =
@@ -328,5 +345,5 @@ if (window.location.href.includes("page2.html")) {
     sessionStorage.getItem("prenom") +
     "  " +
     sessionStorage.getItem("nom");
-    allo.appendChild(para);
+  allo.appendChild(para);
 }
