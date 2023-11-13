@@ -2,15 +2,15 @@
     "questions": [
       {
         "rep1": "Oui",
-        "rep2": "Oui",
-        "rep3": "Oui",
+        "rep2": "Blablabla",
+        "rep3": "Pikachu",
         "rep4": "Oui",
         "rep5": "Oui"
       },
       {
         "rep1": "Non",
-        "rep2": "Non",
-        "rep3": "Non",
+        "rep2": "Voiture",
+        "rep3": "maison",
         "rep4": "Non",
         "rep5": "Non"
       }
