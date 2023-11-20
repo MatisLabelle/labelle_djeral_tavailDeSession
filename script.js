@@ -10,6 +10,7 @@ const userIn = document.getElementById("user-inscription");
 const passwordIn = document.getElementById("password-inscription");
 const storedUser = localStorage.getItem("userName");
 const storedPassword = localStorage.getItem("password");
+const stat = document.querySelector(".stat");
 
 // page de connexion
 if (window.location.href.includes("page-connexion.html")) {
@@ -137,13 +138,13 @@ if (window.location.href.includes("page2.html")) {
       // chq question cree un setItem dans le sessionStorage et les force dans un <p> (questionsRep)
       for (let i = 0; i < tabQuestions.length; i++) {
         if (i === 1 || i === 2) {
-          sessionStorage.setItem("question" + (i + 1), tabQuestions[i].value);
+          localStorage.setItem("question" + (i + 1), tabQuestions[i].value);
           let paraRep = document.createTextNode("");
           paraRep.textContent =
             "Question " +
             (i + 1) +
             ": " +
-            sessionStorage.getItem("question" + (i + 1));
+            localStorage.getItem("question" + (i + 1));
           questionsRep.appendChild(paraRep);
           questionsRep.appendChild(document.createElement("br"));
         } else {
@@ -151,13 +152,13 @@ if (window.location.href.includes("page2.html")) {
             // If it's iterable
             for (let radio of tabQuestions[i]) {
               if (radio.checked) {
-                sessionStorage.setItem("radio" + (i + 1), radio.value);
+                localStorage.setItem("radio" + (i + 1), radio.value);
 
                 let paraRepRadio = document.createTextNode(
                   "Question " +
                     (i + 1) +
                     ": " +
-                    sessionStorage.getItem("radio" + (i + 1))
+                    localStorage.getItem("radio" + (i + 1))
                 );
                 questionsRep.appendChild(paraRepRadio);
                 questionsRep.appendChild(document.createElement("br"));
@@ -171,58 +172,57 @@ if (window.location.href.includes("page2.html")) {
 
       effacerRepPage2(erase);
     }
-    /*
+
     // lecture du json reponses_sondage.json
     fetch("reponses_sondage.json")
       .then((reponse) => reponse.json())
       .then((sondage) => {
-        sessionStorage.setItem("questionMatis1", sondage.questions[0].rep1);
-        sessionStorage.setItem("questionMatis2", sondage.questions[0].rep2);
-        sessionStorage.setItem("questionMatis3", sondage.questions[0].rep3);
-        sessionStorage.setItem("questionMatis4", sondage.questions[0].rep4);
-        sessionStorage.setItem("questionMatis5", sondage.questions[0].rep5);
+        localStorage.setItem("questionMatis1", sondage.questions[0].rep1);
+        localStorage.setItem("questionMatis2", sondage.questions[0].rep2);
+        localStorage.setItem("questionMatis3", sondage.questions[0].rep3);
+        localStorage.setItem("questionMatis4", sondage.questions[0].rep4);
+        localStorage.setItem("questionMatis5", sondage.questions[0].rep5);
 
-        sessionStorage.setItem("questionAbdel1", sondage.questions[1].rep1);
-        sessionStorage.setItem("questionAbdel2", sondage.questions[1].rep2);
-        sessionStorage.setItem("questionAbdel3", sondage.questions[1].rep3);
-        sessionStorage.setItem("questionAbdel4", sondage.questions[1].rep4);
-        sessionStorage.setItem("questionAbdel5", sondage.questions[1].rep5);
+        localStorage.setItem("questionAbdel1", sondage.questions[1].rep1);
+        localStorage.setItem("questionAbdel2", sondage.questions[1].rep2);
+        localStorage.setItem("questionAbdel3", sondage.questions[1].rep3);
+        localStorage.setItem("questionAbdel4", sondage.questions[1].rep4);
+        localStorage.setItem("questionAbdel5", sondage.questions[1].rep5);
 
         // div allo avec nom et prenom
-      
 
         //Afficher les reponse des questions
-        let nomQuestion = sessionStorage.getItem("nom");
+        let nomQuestion = localStorage.getItem("nom");
         let paraQuestion = document.createElement("p");
         if (nomQuestion === "Labelle") {
           paraQuestion.textContent =
-            " Vous avez repondu : " +
-            sessionStorage.getItem("questionMatis1") +
+            " Vos réponses lors de votre dernière visite: " +
+            localStorage.getItem("questionMatis1") +
             " a la question 1,  " +
-            sessionStorage.getItem("questionMatis2") +
+            localStorage.getItem("questionMatis2") +
             " a la question 2,  " +
-            sessionStorage.getItem("questionMatis3") +
+            localStorage.getItem("questionMatis3") +
             " a la question 3, " +
-            sessionStorage.getItem("questionMatis4") +
+            localStorage.getItem("questionMatis4") +
             " a la question 4  et " +
-            sessionStorage.getItem("questionMatis5") +
+            localStorage.getItem("questionMatis5") +
             " a la question 5";
         } else if (nomQuestion === "Ali") {
           paraQuestion.textContent =
             " Vous avez repondu : " +
-            sessionStorage.getItem("questionAbdel1") +
+            localStorage.getItem("questionAbdel1") +
             " a la question 1,  " +
-            sessionStorage.getItem("questionAbdel2") +
+            localStorage.getItem("questionAbdel2") +
             " a la question 2,  " +
-            sessionStorage.getItem("questionAbdel3") +
+            localStorage.getItem("questionAbdel3") +
             " a la question 3, " +
-            sessionStorage.getItem("questionAbdel4") +
+            localStorage.getItem("questionAbdel4") +
             " a la question 4  et " +
-            sessionStorage.getItem("questionAbdel5") +
+            localStorage.getItem("questionAbdel5") +
             " a la question 5";
         }
-        allo.appendChild(paraQuestion);
-      });*/
+        stat.appendChild(paraQuestion);
+      });
   });
 
   // counter bouton envoyer

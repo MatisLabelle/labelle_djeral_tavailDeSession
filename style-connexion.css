@@ -24,4 +24,27 @@
   border: 1px solid lightgray;
   padding: 20px;
   text-align: center;
+  width: 25%;
+}
+
+.stat {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  border: 1px solid lightgray;
+  padding: 20px;
+  text-align: center;
+  width: 25%;
+}
+
+.sondage {
+  width: 50%;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(#5093da, #9cd8ff);
+  background-size: auto;
+  background-repeat: no-repeat;
 }

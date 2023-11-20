@@ -1,19 +1,18 @@
 {
-    "questions": [
-      {
-        "rep1": "Oui",
-        "rep2": "Blablabla",
-        "rep3": "Pikachu",
-        "rep4": "Oui",
-        "rep5": "Oui"
-      },
-      {
-        "rep1": "Non",
-        "rep2": "Voiture",
-        "rep3": "maison",
-        "rep4": "Non",
-        "rep5": "Non"
-      }
-
-    ]
-  }
+  "questions": [
+    {
+      "rep1": "Oui",
+      "rep2": "Tokyo",
+      "rep3": "2 semaines",
+      "rep4": "5",
+      "rep5": "Oui"
+    },
+    {
+      "rep1": "Non",
+      "rep2": "New York",
+      "rep3": "3 jours",
+      "rep4": "1",
+      "rep5": "Non"
+    }
+  ]
+}
