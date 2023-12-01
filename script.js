@@ -284,6 +284,19 @@ if (window.location.href.includes("page2.html")) {
   input1Oui.name = quest1Oui.name;
   input1Oui.value = quest1Oui.value;
 
+  tabEleme = [
+    new QuestionRadio("q1-oui", "q1", "oui"),
+    new QuestionRadio("q1-non", "q1", "non"),
+    new QuestionRadio("q4-1", "q4", "1"),
+  ];
+
+  tabEleme.forEach((element) => {
+    let inputEl = document.getElementById(element.id);
+    inputEl.type = element.type;
+    inputEl.name = element.name;
+    inputEl.value = element.value;
+  });
+
   input1Non.type = "radio";
   input1Non.name = quest1Non.name;
   input1Non.value = quest1Non.value;
