@@ -12,9 +12,7 @@ const storedUser = localStorage.getItem("userName");
 const storedPassword = localStorage.getItem("password");
 const stat = document.querySelector(".stat");
 
-// page de connexion
 if (window.location.href.includes("page-connexion.html")) {
-  // classe user et inscription
   class User {
     constructor(userName, password) {
       this.userName = userName;
@@ -30,7 +28,6 @@ if (window.location.href.includes("page-connexion.html")) {
     window.location.reload();
   });
 
-  // connexion
   function verifConnect() {
     console.log("Inscrire button clicked");
 
@@ -66,15 +63,12 @@ if (window.location.href.includes("page-connexion.html")) {
   btnPage1.addEventListener("click", verifConnect);
 }
 
-// page sondage
 if (window.location.href.includes("page2.html")) {
-  // alert cookies
   (() => {
     let message = "Ce site utilise vos cookies si vous continuez la navigation";
     alert(message);
   })();
 
-  // bouton déconexion
   if (btnPage2 !== null) {
     btnPage2.addEventListener("click", function () {
       setTimeout(function () {
@@ -96,18 +90,17 @@ if (window.location.href.includes("page2.html")) {
   }
   let questionsAffichees = false;
 
-  // fonction pour effacer les reponses dans les inputs
   function effacerRepPage2(fonctionEfface) {
     const inputEfface = document.querySelectorAll(".page2-input");
     inputEfface.forEach((input) => {
       fonctionEfface(input);
     });
   }
+
   function erase(input) {
     input.value = "";
   }
 
-  // message apres l'envoie
   submit.addEventListener("click", function () {
     let merci = document.createElement("p");
     let node = document.createTextNode(
@@ -117,7 +110,6 @@ if (window.location.href.includes("page2.html")) {
     merci.appendChild(node);
     body.appendChild(merci);
 
-    // afficher les réponses
     if (!questionsAffichees) {
       let q1 = document.getElementsByName("q1");
       let q2 = document.getElementById("q2");
@@ -127,7 +119,6 @@ if (window.location.href.includes("page2.html")) {
 
       let tabQuestions = [q1, q2, q3, q4, q5];
 
-      //text node avec les reponses a l'interieur
       let questionsRep = document.createElement("p");
       let repondu = document.createTextNode(
         "Voici vos reponses pour chacunes des questions"
@@ -135,7 +126,6 @@ if (window.location.href.includes("page2.html")) {
       questionsRep.appendChild(repondu);
       questionsRep.appendChild(document.createElement("br"));
 
-      // chq question cree un setItem dans le sessionStorage et les force dans un <p> (questionsRep)
       for (let i = 0; i < tabQuestions.length; i++) {
         if (i === 1 || i === 2) {
           localStorage.setItem("question" + (i + 1), tabQuestions[i].value);
@@ -149,7 +139,6 @@ if (window.location.href.includes("page2.html")) {
           questionsRep.appendChild(document.createElement("br"));
         } else {
           if (tabQuestions[i].length) {
-            // If it's iterable
             for (let radio of tabQuestions[i]) {
               if (radio.checked) {
                 localStorage.setItem("radio" + (i + 1), radio.value);
@@ -173,7 +162,6 @@ if (window.location.href.includes("page2.html")) {
       effacerRepPage2(erase);
     }
 
-    // lecture du json reponses_sondage.json
     fetch("reponses_sondage.json")
       .then((reponse) => reponse.json())
       .then((sondage) => {
@@ -189,9 +177,6 @@ if (window.location.href.includes("page2.html")) {
         localStorage.setItem("questionAbdel4", sondage.questions[1].rep4);
         localStorage.setItem("questionAbdel5", sondage.questions[1].rep5);
 
-        // div allo avec nom et prenom
-
-        //Afficher les reponse des questions
         let nomQuestion = localStorage.getItem("nom");
         let paraQuestion = document.createElement("p");
         if (nomQuestion === "Labelle") {
@@ -225,7 +210,6 @@ if (window.location.href.includes("page2.html")) {
       });
   });
 
-  // counter bouton envoyer
   function counter() {
     let clickCount = 0;
     return function () {
@@ -259,7 +243,6 @@ if (window.location.href.includes("page2.html")) {
     submitButton.addEventListener("click", handleClick);
   }
 
-  // class question
   class Question {
     constructor(id, type, name) {
       this.id = id;
@@ -273,21 +256,17 @@ if (window.location.href.includes("page2.html")) {
       this.value = value;
     }
   }
-  // Question 1
-  let quest1Oui = new QuestionRadio("q1-oui", "q1", "oui");
-  let quest1Non = new QuestionRadio("q1-non", "q1", "non");
-
-  let input1Oui = document.getElementById("q1-oui");
-  let input1Non = document.getElementById("q1-non");
-
-  input1Oui.type = "radio";
-  input1Oui.name = quest1Oui.name;
-  input1Oui.value = quest1Oui.value;
 
   tabEleme = [
     new QuestionRadio("q1-oui", "q1", "oui"),
     new QuestionRadio("q1-non", "q1", "non"),
     new QuestionRadio("q4-1", "q4", "1"),
+    new QuestionRadio("q4-2", "q4", "2"),
+    new QuestionRadio("q4-3", "q4", "3"),
+    new QuestionRadio("q4-4", "q4", "4"),
+    new QuestionRadio("q4-5", "q4", "5"),
+    new QuestionRadio("q5-oui", "q5", "oui"),
+    new QuestionRadio("q5-non", "q5", "non"),
   ];
 
   tabEleme.forEach((element) => {
@@ -297,60 +276,6 @@ if (window.location.href.includes("page2.html")) {
     inputEl.value = element.value;
   });
 
-  input1Non.type = "radio";
-  input1Non.name = quest1Non.name;
-  input1Non.value = quest1Non.value;
-
-  // Question 4
-
-  let quest4Option1 = new QuestionRadio("q4-1", "q4", "1");
-  let quest3Option2 = new QuestionRadio("q4-2", "q4", "2");
-  let quest4Option3 = new QuestionRadio("q4-3", "q4", "3");
-  let quest3Option4 = new QuestionRadio("q4-4", "q4", "4");
-  let quest4Option5 = new QuestionRadio("q4-5", "q4", "5");
-
-  let inputQuest4Option1 = document.getElementById("q4-1");
-  let inputQuest4Option2 = document.getElementById("q4-2");
-  let inputQuest4Option3 = document.getElementById("q4-3");
-  let inputQuest4Option4 = document.getElementById("q4-4");
-  let inputQuest4Option5 = document.getElementById("q4-5");
-
-  inputQuest4Option1.type = "radio";
-  inputQuest4Option1.name = quest4Option1.name;
-  inputQuest4Option1.value = quest4Option1.value;
-
-  inputQuest4Option2.type = "radio";
-  inputQuest4Option2.name = quest3Option2.name;
-  inputQuest4Option2.value = quest3Option2.value;
-
-  inputQuest4Option3.type = "radio";
-  inputQuest4Option3.name = quest4Option3.name;
-  inputQuest4Option3.value = quest4Option3.value;
-
-  inputQuest4Option4.type = "radio";
-  inputQuest4Option4.name = quest3Option4.name;
-  inputQuest4Option4.value = quest3Option4.value;
-
-  inputQuest4Option5.type = "radio";
-  inputQuest4Option5.name = quest4Option5.name;
-  inputQuest4Option5.value = quest4Option5.value;
-
-  // Question 5
-  let quest5Oui = new QuestionRadio("q5-oui", "q5", "oui");
-  let quest5Non = new QuestionRadio("q5-non", "q5", "non");
-
-  let input5Oui = document.getElementById("q5-oui");
-  let input5Non = document.getElementById("q5-non");
-
-  input5Oui.type = "radio";
-  input5Oui.name = quest5Oui.name;
-  input5Oui.value = quest5Oui.value;
-
-  input5Non.type = "radio";
-  input5Non.name = quest5Non.name;
-  input5Non.value = quest5Non.value;
-
-  // affiche nom + prenom
   let allo = document.querySelector(".allo");
   let para = document.createElement("p");
   para.textContent =
